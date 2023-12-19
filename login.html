@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #ededed;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 1200px;
+            min-height: 650px;
+
+            font-family: '华文新魏', STXinwei;
+        }
+        
+        .login {
+            background-color: rgb(255, 255, 255);
+            width: 400px;
+            height: 300px;
+            font-size: 20px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-title {
+            padding: 15px;
+            font-size: 30px;
+        }
+
+        .login-userin {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .userin-username, .userin-password {
+            width: 300px;
+            height: 40px;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 3px;
+            padding-left: 15px;
+            padding-right: 15px;
+            border: 1px solid #bec1c3;
+            
+            font-size: 25px;
+            font-family: '华文新魏', STXinwei;
+        }
+
+        .userin-log {
+            width: 330px;
+            height: 45px;
+            background-color: rgb(255, 0, 0);
+            border-radius: 5px;
+            margin: 30px;
+            font-size: 18px;
+            color: white;
+            border: 1px solid rgb(255, 0, 0);
+            font-family: '华文新魏', STXinwei;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       <div class="login">
+            <div class="login-title">欢迎登录</div>
+            <div class="login-userin">
+                <input type="text" class="userin-username" v-model="username" placeholder="用户名">
+                <input type="password" class="userin-password" v-model="password" placeholder="密码">
+                <button class="userin-log" v-on:click="login()">登录</button>
+            </div>
+       </div>
+    </div>
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: { 
+            username: "",
+            password: "",
+        },
+
+        methods: {
+            login() {
+                if (this.username === "") {
+                    window.alert("用户名不能为空!");
+                }
+                else if (this.password === "") {
+                    window.alert("密码不能为空!");
+                }
+                else if (this.username === "demo" && this.password === "123") {
+                    window.location.href='index.html';
+                    window.alert("登陆成功");
+                } 
+                else {
+                    window.alert("账号密码错误!");
+                }
+            }
+        },
+    })
+</script>
+
+</html>

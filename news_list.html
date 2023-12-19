@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻列表</title>
+    
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
+
+    <style>
+        body {
+            background-color: #ffffff;
+
+            min-width: 1200px;
+            min-height: 650px;
+
+            margin: 0px;
+            padding: 0px;
+
+            font-family: '华文新魏', STXinwei;
+        }
+
+        .top {
+            background-color: #f02d2d;
+
+            width: 100%;
+            height: 40px;
+
+            position: sticky;
+            top: 0px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 2px 2px 2px #ededed;
+            z-index: 999;
+
+            color: white;
+            font-size: 20px;
+        }
+
+        .top-items {
+            display: flex;
+        }
+
+        .top-item {
+            padding: 15px;
+        }
+
+        .mid {
+            width: 100%;
+
+            display: flex;
+            justify-content: space-around;
+            
+        }
+
+        .mid-title {
+            font-size: 25px;
+        }
+
+        .mid-left, .mid-right, .mid-items {
+            padding: 15px;
+            margin-top: 5px;
+        }
+
+        .mid-left {
+            width: 60%;
+        }
+
+        .mid-right {
+            width: 30%;
+        }
+
+        .mid-items {
+            width: 20%;
+        }
+
+        .mid-item {
+            padding: 10px;
+            font-size: 20px;
+            color: #a7a7a7;
+        }
+
+        .mid-item-text {
+            overflow:hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            -o-text-overflow:ellipsis;
+        }
+
+        .mid-item:hover {
+            background-color: #dedede;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="top">
+            <div class="top-items">
+                <div class="top-item" v-on:click="goToIndex()">
+                    首页
+                </div>
+                <div class="top-item" style="text-decoration:underline;">
+                    新闻列表
+                </div>
+            </div>
+
+            <div class="top-item" v-on:click="goToLogin()">
+                登录
+            </div>
+        </div>
+
+        <div class="mid">
+            <div class="mid-left">
+                <div class="mid-title">
+                    今日热点
+                </div>
+                <div class="mid-item" v-for="(new_d, index) in news" :key="index">
+                    <div style="display: flex; justify-content: space-between;" v-on:click="goToNewsPage(index+1)">
+                        <div>
+                            {{new_d[1]}}
+                        </div>
+                        <div>
+                            {{new_d[2]}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mid-right" >
+                <div class="mid-title">
+                    政治
+                </div>
+                <div class="mid-item" v-for="(new_d, index) in news" :key="index">
+                    <div class="mid-item-text" v-on:click="goToNewsPage(index+1)">{{new_d[1]}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mid">
+            <div class="mid-items">
+                <div class="mid-title">
+                    经济
+                </div>
+                <div class="mid-item" v-for="(new_d, index) in news" :key="index">
+                    <div class="mid-item-text"  v-on:click="goToNewsPage(index+1)">{{new_d[1]}}</div>
+                </div>
+            </div>
+            <div class="mid-items" >
+                <div class="mid-title">
+                    军事
+                </div>
+                <div class="mid-item" v-for="(new_d, index) in news" :key="index">
+                    <div class="mid-item-text"  v-on:click="goToNewsPage(index+1)">{{new_d[1]}}</div>
+                </div>
+            </div>
+            <div class="mid-items" >
+                <div class="mid-title">
+                    文化
+                </div>
+                <div class="mid-item" v-for="(new_d, index) in news" :key="index">
+                    <div class="mid-item-text" v-on:click="goToNewsPage(index+1)">{{new_d[1]}}</div>
+                </div>
+            </div>
+            <div class="mid-items" >
+                <div class="mid-title">
+                    娱乐
+                </div>
+                <div class="mid-item" v-for="(new_d, index) in news" :key="index">
+                    <div class="mid-item-text" v-on:click="goToNewsPage(index+1)">{{new_d[1]}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: { 
+            news: [
+                [1, "保障性住房重点“保”哪类人群？为何不得上市交易？", "2023年12月19日 15:08:52", "新华网", "new_1.jpg", "国家开发银行今天（19日）宣布，已向福州市双龙新居保障性住房项目授信2.02亿元，这意味着全国第一笔配售型保障性住房开发贷款成功落地，我国新一轮保障性住房规划建设正在加速推进。"],
+                [2, "2023世界交通运输大会在武汉开幕", "2023年06月15日08:59", "新华网", "new_2.jpg", "6月14日，2023世界交通运输大会在湖北省武汉市开幕。大会围绕“创新·低碳·智慧·共享——更可持续的交通”主题进行探讨，并展示各国在交通运输等领域的最新科技成果与发展模式。"],
+                [3, "内蒙古呼和浩特：校园那达慕", "2023年06月15日08:54", "新华网", "new_3.jpg", "2023年6月14日，内蒙古呼和浩特民族学院第十届那达慕文化节暨第59届田径运动会拉开帷幕。“搏克”“射箭”“布鲁”等那达慕传统体育项目比赛受到师生欢迎。"],
+                [4, "科普视频 | 智慧税务“云厅”，让缴费人“一次都不用跑”", "2023年06月15日08:43", "人民网-科普中国", "new_4.jpg", "6月30日，2022年度个人所得税综合所得汇算即将结束，个税年度汇算通过手机APP就可轻松办理。近年来，得益于数字技术发展，税务部门不断拓展“非接触式”办税缴费服务，让“一次不用跑”覆盖绝大多数办税缴费场景；不仅如此，税务部门还积极推进“智慧”税务建设，实现纳税服务线上线下齐发展、更加注重满足个性化需求。"],
+                [5, "江西遂川：梯田美如画 农民劳作忙", "2023年06月15日08:25", "人民网－江西频道", "new_5.jpg", "人民网遂川6月15日电（记者秦海峰）近日，在江西遂川县左安镇的桃源梯田内，农民正在辛勤劳动，从航拍镜头看，梯田随山势蜿蜒、层层叠叠，线条流畅，阡陌纵横。一千多米的山地落差，展现了古朴的农耕方式、灵动的大地艺术和浓郁的客家文化。\n桃源梯田距离遂川县城60千米，位于遂川县左安镇西南，共有梯田5000余亩，其中集中连片的就有2000余亩。桃源梯田依山势开建，层层叠叠，又有桃花村落点缀其中。耕作时，山泉水自山顶向山下漫延，气象万千；收获时，农作物天然色彩，五色斑斓，交错辉映，恰如一卷卷艳丽的画轴。无数层梯田无数条蛟龙，在山间岭谷舞动令人叹为观止。\n桃源梯田2021年被评为国家AAAA级旅游景区，景区所在地左安镇桃源村被评为江西省省级旅游重点村。"],
+                [6, "戚继光舰抵达菲律宾进行友好访问", "2023年06月15日08:56", "新华网", "new_6.jpg", "执行远海远域实习访问任务的中国海军戚继光舰14日上午抵达菲律宾首都马尼拉，开始对菲律宾进行为期3天的友好访问。这是戚继光舰首次到访菲律宾。"],
+            ],
+        },
+
+        methods: {
+            goToIndex() {
+                window.location.href='index.html';
+            },
+
+            goToLogin() {
+                window.location.href='login.html';
+            },
+
+            goToNewsPage(page) {
+                window.location.href='news_page.html?page=' + page;
+            },
+        },
+    })
+</script>
+
+</html>

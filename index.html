@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #ffffff;
+
+            min-width: 1200px;
+            min-height: 650px;
+
+            margin: 0px;
+            padding: 0px;
+            
+            font-family: '华文新魏', STXinwei;
+        }
+
+        .logo {
+            background-color: #ffffff;
+
+            height: 100px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 55px;
+            font-family: '华文新魏', STXinwei;
+            color: rgb(247, 28, 28);
+        }
+
+        .top {
+            background-color: #f02d2d;
+
+            width: 100%;
+            height: 40px;
+
+            position: sticky;
+            top: 0px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 2px 2px 2px #ededed;
+            z-index: 999;
+
+            font-size: 20px;
+            color: white;
+        }
+
+        .top-items {
+            display: flex;
+        }
+
+        .top-item {
+            padding: 15px;
+        }
+
+        .mid {
+            width: 100%;
+            height: 700px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+        }
+
+        .mid-slideshow {
+            width: 60%;
+            height: 500px;
+        }
+
+        .slideshow-img {
+            width: 100%;
+
+            height: 500px;
+        }
+
+        .slideshow-bar {
+            position: relative;
+            top: -15px;
+            height: 12px;
+            z-index: 999;
+        }
+
+        .bars {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+
+        .bar-choice,
+        .bar-no {
+            width: 20px;
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.7);
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+
+        .bar-choice {
+            background-color: rgba(70, 70, 70, 0.7);
+        }
+
+        .slideshow-btn {
+            position: relative;
+            top: -518px;
+            display: flex;
+            justify-content: space-between;
+
+        }
+
+        .slideshow-left,
+        .slideshow-right {
+            background-color: rgba(168, 168, 168, 0);
+            height: 500px;
+            width: 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+
+            font-size: 30px;
+            font-weight: 900;
+            color: rgba(168, 168, 168, 0);
+        }
+
+        .slideshow-left:hover,
+        .slideshow-right:hover {
+            background-color: rgba(168, 168, 168, 0.2);
+            color: rgba(24, 24, 24, 0.7);
+
+        }
+
+        .slideshow-list {
+            position: relative;
+
+            width: 30%;
+            border-radius: 5px;
+            height: 500px;
+        }
+
+        .list-title {
+            font-weight: bolder;
+            padding: 15px;
+            font-size: 25px;
+        }
+
+        .list-detail {
+            padding: 15px;
+            font-size: 25px;
+            display: flex;
+        }
+
+        .list-detail:hover {
+            background-color: #dedede;
+            border-radius: 4px;
+        }
+
+        .list-detail-2 {
+            overflow:hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            -o-text-overflow:ellipsis;
+        }
+
+        .bot {
+            height: 100px;
+            width: 100%;
+            background-color: #f02d2d;
+
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bot-items {
+            display: flex;
+        }
+
+        .bot-item {
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="logo">
+            <div class="logo-title">
+                xxx新闻网
+            </div>
+        </div>
+
+        <div class="top">
+            <div class="top-items">
+                <div class="top-item" style="text-decoration:underline;">
+                    首页
+                </div>
+                <div class="top-item" v-on:click="goToNewList()">
+                    新闻列表
+                </div>
+            </div>
+
+            <div class="top-item" v-on:click="goToLogin()">
+                登录
+            </div>
+        </div>
+
+        <div class="mid">
+            <div class="mid-slideshow">
+                <div v-for="(new_d, index) in news" :key="index">
+                    <div style="font-size: 30px; position: relative; top: -30px;" v-show="sm === index + 1" v-on:click="goToNewsPage(index+1)">{{new_d[1]}}</div>
+                    <img class="slideshow-img" :src="'imgs/' + new_d[4]" v-show="sm === index + 1" v-on:click="goToNewsPage(index+1)">
+                </div>
+
+                <div class="slideshow-bar">
+                    <div class="bars">
+                        <div v-for="(new_d, index) in news" :key="index">
+                            <div class="bar-choice" v-show="sm === index+1"></div>
+                            <div class="bar-no" v-show="sm !== index+1" v-on:click="toNum(index+1)"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="slideshow-btn">
+                    <div class="slideshow-left" v-on:click="left()">
+                        <
+                    </div>
+                    <div class="slideshow-right" v-on:click="right()">
+                        >
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="slideshow-list">
+                <div class="list-title">今日热点</div>
+                <div class="list-detail" v-for="(new_d, index) in news" :key="index">
+                    <div style="color: red; padding: 5px;" v-show="index + 1 <= 3">
+                        {{index + 1}}
+                    </div>
+                    <div style="color: rgb(119, 119, 119); padding: 5px;" v-show="index + 1 > 3" v-on:click="goToNewsPage(index+1)">
+                        {{index + 1}}
+                    </div>
+                    <div class="list-detail-2" style="padding: 5px;" v-on:click="goToNewsPage(index+1)">
+                        {{new_d[1]}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bot">
+            <div class="bot-items">
+                <div class="bot-item">关于XXX新闻网</div>
+                <div class="bot-item">关于XXX新闻网</div>
+                <div class="bot-item">关于XXX新闻网</div>
+            </div>
+            <div class="bot-items">
+                <div class="bot-item">关于XXX新闻网</div>
+                <div class="bot-item">关于XXX新闻网</div>
+                <div class="bot-item">关于XXX新闻网</div>
+                <div class="bot-item">关于XXX新闻网</div>
+                <div class="bot-item">关于XXX新闻网</div>
+                <div class="bot-item">关于XXX新闻网</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            sm: 1,
+            news: [
+                [1, "保障性住房重点“保”哪类人群？为何不得上市交易？", "2023年12月19日 15:08:52", "新华网", "new_1.jpg", "国家开发银行今天（19日）宣布，已向福州市双龙新居保障性住房项目授信2.02亿元，这意味着全国第一笔配售型保障性住房开发贷款成功落地，我国新一轮保障性住房规划建设正在加速推进。"],
+                [2, "2023世界交通运输大会在武汉开幕", "2023年06月15日08:59", "新华网", "new_2.jpg", "6月14日，2023世界交通运输大会在湖北省武汉市开幕。大会围绕“创新·低碳·智慧·共享——更可持续的交通”主题进行探讨，并展示各国在交通运输等领域的最新科技成果与发展模式。"],
+                [3, "内蒙古呼和浩特：校园那达慕", "2023年06月15日08:54", "新华网", "new_3.jpg", "2023年6月14日，内蒙古呼和浩特民族学院第十届那达慕文化节暨第59届田径运动会拉开帷幕。“搏克”“射箭”“布鲁”等那达慕传统体育项目比赛受到师生欢迎。"],
+                [4, "科普视频 | 智慧税务“云厅”，让缴费人“一次都不用跑”", "2023年06月15日08:43", "人民网-科普中国", "new_4.jpg", "6月30日，2022年度个人所得税综合所得汇算即将结束，个税年度汇算通过手机APP就可轻松办理。近年来，得益于数字技术发展，税务部门不断拓展“非接触式”办税缴费服务，让“一次不用跑”覆盖绝大多数办税缴费场景；不仅如此，税务部门还积极推进“智慧”税务建设，实现纳税服务线上线下齐发展、更加注重满足个性化需求。"],
+                [5, "江西遂川：梯田美如画 农民劳作忙", "2023年06月15日08:25", "人民网－江西频道", "new_5.jpg", "人民网遂川6月15日电（记者秦海峰）近日，在江西遂川县左安镇的桃源梯田内，农民正在辛勤劳动，从航拍镜头看，梯田随山势蜿蜒、层层叠叠，线条流畅，阡陌纵横。一千多米的山地落差，展现了古朴的农耕方式、灵动的大地艺术和浓郁的客家文化。\n桃源梯田距离遂川县城60千米，位于遂川县左安镇西南，共有梯田5000余亩，其中集中连片的就有2000余亩。桃源梯田依山势开建，层层叠叠，又有桃花村落点缀其中。耕作时，山泉水自山顶向山下漫延，气象万千；收获时，农作物天然色彩，五色斑斓，交错辉映，恰如一卷卷艳丽的画轴。无数层梯田无数条蛟龙，在山间岭谷舞动令人叹为观止。\n桃源梯田2021年被评为国家AAAA级旅游景区，景区所在地左安镇桃源村被评为江西省省级旅游重点村。"],
+                [6, "戚继光舰抵达菲律宾进行友好访问", "2023年06月15日08:56", "新华网", "new_6.jpg", "执行远海远域实习访问任务的中国海军戚继光舰14日上午抵达菲律宾首都马尼拉，开始对菲律宾进行为期3天的友好访问。这是戚继光舰首次到访菲律宾。"],
+            ],
+        },
+
+        mounted() {
+            setInterval(this.freshImg, 5000);
+        },
+
+        methods: {
+            freshImg() {
+                this.sm += 1;
+                if (this.sm > 6 || this.sm <= 0) {
+                    this.sm = 1;
+                }
+            },
+
+            goToNewList() {
+                window.location.href='news_list.html';
+            },
+
+            goToLogin() {
+                window.location.href='login.html';
+            },
+
+            goToNewsPage(page) {
+                window.location.href='news_page.html?page=' + page;
+            },
+
+            left() {
+                this.sm += 1;
+                if (this.sm > 6) {
+                    this.sm = 1;
+                }
+            },
+
+            right() {
+                this.sm -= 1;
+                if (this.sm <= 0) {
+                    this.sm = 6;
+                }
+            },
+
+            toNum(num) {
+                console.log(num);
+                this.sm = num;
+            },
+        },
+    })
+</script>
+
+</html>
