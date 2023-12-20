@@ -5,6 +5,7 @@
 - 作者: GMCY
 - 系列: 大学课程作业
 - 网站: [新闻网](https://gmcy2020.github.io/University-News-Web/)
+- 仓库: [GitHub](https://github.com/GMCY2020/University-News-Web) | [Gitee](https://gitee.com/GMCY2020/University-News-Web)
 - 话题(GitHub): [vue](https://github.com/topics/vue) \ [university-coursework](https://github.com/topics/university-coursework)
 - 创建时间: 2023/06/17
 
